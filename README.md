@@ -4,12 +4,9 @@
 [![PyPI version](https://badge.fury.io/py/imitation.svg)](https://badge.fury.io/py/imitation)
 
 
-# Imitation Learning Baseline Implementations
+# Imitation Learning Baseline Implementations (forked)
 
-This project aims to provide clean implementations of imitation and reward learning algorithms.
-Currently we have implementations of Behavioral Cloning, [DAgger](https://arxiv.org/pdf/1011.0686.pdf) (with synthetic examples), density-based reward modeling, [Maximum Causal Entropy Inverse Reinforcement Learning](https://www.cs.cmu.edu/~bziebart/publications/maximum-causal-entropy.pdf), [Adversarial Inverse Reinforcement Learning](https://arxiv.org/abs/1710.11248), [Generative Adversarial Imitation Learning](https://arxiv.org/abs/1606.03476) and [Deep RL from Human Preferences](https://arxiv.org/abs/1706.03741).
-
-This project is forked by Angela Wu to do some tweaks to rollout.py [https://github.com/angiecodinghub/imitation/blob/master/src/imitation/data/rollout.py] to accommodate for the dictionary observation space she has in her observations. Note that the changes are problem-specific (for PandaReach-v2.)
+This project is forked from [HumanCompatibleAI/imitation](https://github.com/HumanCompatibleAI/imitation) by Angela Wu to do some tweaks to [rollout.py](https://github.com/angiecodinghub/imitation/blob/master/src/imitation/data/rollout.py) to accommodate for the dictionary observation space she has in her observations. Note that the changes are problem-specific (for PandaReach-v2.)
 
 ## Installation:
 
