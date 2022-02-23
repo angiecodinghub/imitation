@@ -128,7 +128,7 @@ class TrajectoryAccumulator:
         trajs = []
         for env_idx in range(len(obs)):
             assert env_idx in self.partial_trajectories
-            assert list(self.partial_trajectories[env_idx][0].keys()) == ["obs"], (
+            assert list(self.partial_trajectories[0][0].keys()) == ["obs"], (
                 "Need to first initialize partial trajectory using "
                 "self._traj_accum.add_step({'obs': ob}, key=env_idx)"
             )
@@ -139,9 +139,9 @@ class TrajectoryAccumulator:
                 # When dones[i] from VecEnv.step() is True, obs[i] is the first
                 # observation following reset() of the ith VecEnv, and
                 # infos[i]["terminal_observation"] is the actual final observation.
-                real_ob = info["terminal_observation"]
+                real_ob = info["terminal_observation"]['achieved_goal'] - info["terminal_observation"]['desired_goal']
             else:
-                real_ob = ob
+                real_ob = obs['achieved_goal'] - obs['desired_goal']
 
             self.add_step(
                 dict(
@@ -334,13 +334,13 @@ def generate_trajectories(
     # accumulator for incomplete trajectories
     trajectories_accum = TrajectoryAccumulator()
     obs = venv.reset()
-    for env_idx, ob in enumerate(obs):
+    #.  for env_idx, ob in enumerate(obs):
         # Seed with first obs only. Inside loop, we'll only add second obs from
         # each (s,a,r,s') tuple, under the same "obs" key again. That way we still
         # get all observations, but they're not duplicated into "next obs" and
         # "previous obs" (this matters for, e.g., Atari, where observations are
         # really big).
-        trajectories_accum.add_step(dict(obs=ob), env_idx)
+    trajectories_accum.add_step({'obs': obs['achieved_goal'] - obs['desired_goal']}, 0)
 
     # Now, we sample until `sample_until(trajectories)` is true.
     # If we just stopped then this would introduce a bias towards shorter episodes,
